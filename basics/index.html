@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="app.js"></script>
+</head>
+<body>
+    <div x-data="{name: 'John Doe', message: '<h1>Hello World from Alpine </h1>'}">
+        <p x-text="name"></p>
+        <p x-html="message"></p>
+    </div>
+
+    <div x-data="dropdown">
+          <p x-text="message2" @click="chengeMessage()"></p>
+    </div>
+
+    
+    <div x-data="{open: false, toggle() {this.open = !this.open}}">
+        <button @click="toggle">Ativar</button>
+        <template x-if="open">
+           <div x-show="open" x-transition:enter-start="opacity-0" x-transition:enter.duration.500ms>
+            conteudo
+          </div>           
+        </template>
+
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+    <div x-data @click="alert('click on me')">
+        clique
+    </div>
+
+    <div x-data x-text="$store.currentUser.Username"></div>
+
+    <br>
+    <br>
+    <br>
+
+    <div x-data="{
+        posts: [{id: 1, name: 'John Doe'}, {id: 2, name: 'Jane Doe'}]
+    }">
+           <template x-for="p in posts" :key="p.id">
+            <h1 x-text="p.name + ' ' + p.id"></h1>
+           </template>
+    </div>
+
+    <br>
+    <br>
+    <!-- <div x-data="text" class="">
+        <input type="text" @keyup.debounce >
+        <p x-text="text"></p>
+    </div> -->
+
+    <div x-data="{keyword: null}">
+        <input type="text" x-model.debounce.750ms="keyword">
+        <p x-text="keyword"></p>
+    </div>
+
+<br>
+<br>
+    <div x-data="{name: 'John Doe', message: null}">
+        <p x-effect="message = 'Ola ' + name"></p>
+        <p x-text="message"></p>
+        <button @click="name = 'Jane Doe'">Checar nome</button>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <div x-data="{modal: false}">
+        <button @click="modal=true">Ativar</button>
+        <template x-teleport="body" >
+          
+           <div x-show="modal" x-transition:enter-start="opacity-0" x-transition:enter.duration.500ms>
+            conteudo
+              <button @click="modal=false">Desativar</button>
+          </div>           
+        </template>
+
+    </div>
+</body>
+</html>
